@@ -3194,6 +3194,10 @@ void server(SOCKET s)
          {
             command_xover(&var);
          }
+         else if(stricmp(cmd,"MODE")==0)
+         {
+            socksendtext(&var,"200 Server ready - posting allowed" CRLF);
+         }
          else
          {
             socksendtext(&var,"500 Unknown command" CRLF);
