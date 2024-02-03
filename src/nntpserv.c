@@ -2745,7 +2745,8 @@ void command_post(struct var *var)
       
       if(chrs[0])
       {
-         sprintf(line,"CHRS: %s 2",chrs);
+         if(stricmp(chrs,"UTF-8")!=0) sprintf(line,"CHRS: %s 2",chrs);
+         else                         strcpy(line,"CHRS: UTF-8 4");
          addjamfield(SubPacket_PS,JAMSFLD_FTSKLUDGE,line);
       }
       
