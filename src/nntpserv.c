@@ -704,7 +704,7 @@ void command_abhs(struct var *var,uchar *cmd)
    }
    else if(article[0] == '<' && article[strlen(article)-1] == '>')
    {
-      strcpy(article,&article[1]);
+      memmove(article,article+1,strlen(article));
       article[strlen(article)-1]=0;
 
       at=strchr(article,'@');
@@ -1372,8 +1372,8 @@ void command_xover(struct var *var)
 
                mimemakeheaderline(mimesubj,1000,"Subject",subject,chrs,NULL,cfg_noencode);
 
-               strcpy(mimefrom,&mimefrom[6]);
-               strcpy(mimesubj,&mimesubj[9]);
+               memmove(mimefrom,mimefrom+6,strlen(mimefrom)-5);
+               memmove(mimesubj,mimesubj+9,strlen(mimesubj)-8);
 
                stripctrl(mimesubj);
                stripctrl(mimefrom);
@@ -1502,7 +1502,7 @@ void getparentinfo(struct var *var,uchar *article,uchar *currentgroup,uchar *msg
    if(article[0] != '<' || article[strlen(article)-1] != '>')
       return;
 
-   strcpy(article,&article[1]);
+   memmove(article,article+1,strlen(article));
    article[strlen(article)-1]=0;
 
    at=strchr(article,'@');
@@ -1669,7 +1669,7 @@ void cancelmessage(struct var *var,uchar *article,struct xlat *postxlat)
       return;
    }
 
-   strcpy(article,&article[1]);
+   memmove(article,article+1,strlen(article));
    article[strlen(article)-1]=0;
 
    at=strchr(article,'@');
@@ -2232,7 +2232,7 @@ void command_post(struct var *var)
             if(from[0] == '\"' && from[strlen(from)-1]=='\"')
             {
                from[strlen(from)-1]=0;
-               strcpy(from,&from[1]);
+               memmove(from,from+1,strlen(from));
                unbackslashquote(from); /* Text in "" should be un-backslash-quoted */
             }
          }
@@ -2302,7 +2302,7 @@ void command_post(struct var *var)
    /* Strip Re: */
 
    if(!cfg_nostripre && (strncmp(subject,"Re: ",4)==0 || strcmp(subject,"Re:")==0))
-      strcpy(subject,&subject[4]);
+      memmove(subject,subject+4,strlen(subject)-3);
    
    /* Truncate strings */
 
@@ -2394,7 +2394,7 @@ void command_post(struct var *var)
       if(flowed && line[0]!=0 && line[0]!='>' && strncmp(line,"-- ",3)!=0)
       {
          if(line[0] == ' ')
-            strcpy(line,&line[1]);
+            memmove(line,line+1,strlen(line));
 
          if(line[strlen(line)-1] == ' ')
          {
@@ -2552,7 +2552,7 @@ void command_post(struct var *var)
       if(text[c] == 13) c++;
       if(text[c] == 13) c++;
          
-      strcpy(text,&text[c]);    
+      memmove(text,text+c,strlen(text)-c+1);
       
       if((ch=strchr(line,',')))
       {
