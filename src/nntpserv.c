@@ -626,8 +626,8 @@ void sendtextblock(struct var *var,uchar *text,struct xlat *xlat)
 
       /* End format=flowed */
 
-      if(stricmp(buf,".")==0) /* "." means end of message in NNTP */
-         strcpy(buf,"..");
+      if(buf[0]=='.')
+         memmove(buf+1,buf,strlen(buf)+1);
 
       strcat(buf,CRLF);
 
@@ -2104,6 +2104,8 @@ void command_post(struct var *var)
       }
       else
       {
+         if(line[0]=='.')
+            memmove(line,line+1,strlen(line));
          if(textpos + strlen(line) > POST_MAXSIZE-1)
          {
             toobig=TRUE;
