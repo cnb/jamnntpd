@@ -1340,7 +1340,7 @@ void command_xover(struct var *var)
             
             if(access)
             {
-               if(fromaddr[0] == 0) strcpy(fromaddr,"unknown");
+               if(fromaddr[0] == 0) strcpy(fromaddr,"unknown@unknown");
                if(fromname[0] == 0) strcpy(fromname,"unknown");
                if(toname[0] == 0)   strcpy(toname,"(none)");
 
