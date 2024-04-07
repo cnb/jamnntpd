@@ -129,6 +129,38 @@ bool parseargs(int argc, char **argv,uchar *filename,ulong line)
 
          c++;
       }
+      else if(stricmp(arg,"-def_nonbsp")==0)
+      {
+         if(c+1 == argc)
+         {
+            printf("Missing argument for %s%s\n",argv[c],src);
+            return(FALSE);
+         }
+
+         if(!(setboolonoff(argv[c+1],&cfg_def_nonbsp)))
+         {
+            printf("Invalid setting %s for %s, must be on or off%s\n",argv[c+1],argv[c],src);
+            return(FALSE);
+         }
+
+         c++;
+      }
+      else if(stricmp(arg,"-def_delssq")==0)
+      {
+         if(c+1 == argc)
+         {
+            printf("Missing argument for %s%s\n",argv[c],src);
+            return(FALSE);
+         }
+
+         if(!(setboolonoff(argv[c+1],&cfg_def_delssq)))
+         {
+            printf("Invalid setting %s for %s, must be on or off%s\n",argv[c+1],argv[c],src);
+            return(FALSE);
+         }
+
+         c++;
+      }
       else if(stricmp(arg,"-origin")==0)
       {
          if(c+1 == argc)
@@ -332,6 +364,8 @@ void createconfig(uchar *file)
    fprintf(fp,"%sstrictnetmail\n",cfg_strictnetmail ? "" : "#");
    fprintf(fp,"def_flowed %s\n",cfg_def_flowed ? "on" : "off");
    fprintf(fp,"def_showto %s\n",cfg_def_showto ? "on" : "off");
+   fprintf(fp,"def_nonbsp %s\n",cfg_def_nonbsp ? "on" : "off");
+   fprintf(fp,"def_delssq %s\n",cfg_def_delssq ? "on" : "off");
    fprintf(fp,"%snostripre\n",cfg_nostripre ? "" : "#");
    fprintf(fp,"%snotearline\n",cfg_notearline ? "" : "#");
    fprintf(fp,"%snoreplyaddr\n",cfg_noreplyaddr ? "" : "#");
@@ -395,6 +429,8 @@ int main(int argc, char **argv)
              " -strictnetmail        Use strict article counters in netmail areas\n"
              " -def_flowed on/off    Default setting for format=flowed (RFC 2646)\n"
              " -def_showto on/off    Default setting for the display of recipient on from line\n"
+             " -def_nonbsp on/off    Default setting for replacing non-breaking spaces by normal spaces\n"
+             " -def_delssq on/off    Default setting for deleting stuffed space from quoted text (format=flowed)\n"
              "\n"
              " Options for posting messages:\n"
              "\n"
