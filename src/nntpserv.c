@@ -2395,18 +2395,29 @@ void command_post(struct var *var)
 
       line[c]=0;
       
-      /* Replace UTF-8 non-breaking spaces by normal spaces */
-      if(var->opt_nonbsp && strstr(line,"\0xC2\0xA0")!=NULL)
-      {
-          int i = strlen(line)-2;
-          while(i>0)
+      /* Replace non-breaking spaces by normal spaces */
+      if(var->opt_nonbsp) {
+          if(stricmp(chrs,"UTF-8")==0 && strstr(line,"\0xC2\0xA0")!=NULL)
           {
-              if (line[i]==0xC2 && line[i+1]==0xA0)
+              int i=strlen(line)-2;
+              while(i>0)
               {
-                  memmove(line+i, line+i+1, strlen(line)-i);
-                  line[i] = ' ';
+                  if (line[i]==0xC2 && line[i+1]==0xA0)
+                  {
+                      memmove(line+i,line+i+1,strlen(line)-i);
+                      line[i]=' ';
+                  }
+                  i--;
               }
-              i--;
+          }
+          else if((strnicmp(chrs,"ISO-8859-",9)==0 || strnicmp(chrs,"WINDOWS-125",11)==0) && strchr(line,0xA0)!=NULL)
+          {
+              int i=strlen(line)-1;
+              while(i>0)
+              {
+                  if(line[i]==0xA0) line[i]=' ';
+                  i--;
+              }
           }
       }
 
