@@ -2305,8 +2305,11 @@ void command_post(struct var *var)
    
    /* Strip Re: */
 
-   if(!cfg_nostripre && (strncmp(subject,"Re: ",4)==0 || strcmp(subject,"Re:")==0))
-      memmove(subject,subject+4,strlen(subject)-3);
+   if(!cfg_nostripre)
+   {
+      if(strncmp(subject,"Re: ",4)==0)   memmove(subject,subject+4,strlen(subject)-3);
+      else if(strcmp(subject,"Re:")==0)  subject[0]=0;
+   }
    
    /* Truncate strings */
 
