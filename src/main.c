@@ -77,6 +77,10 @@ bool parseargs(int argc, char **argv,uchar *filename,ulong line)
       {
          cfg_notzutc=TRUE;
       }
+      else if(stricmp(arg,"-loggroups")==0)
+      {
+         cfg_loggroups=TRUE;
+      }
       else if(stricmp(arg,"-p")==0 || stricmp(arg,"-port")==0)
       {
          if(c+1 == argc)
@@ -359,6 +363,7 @@ void createconfig(uchar *file)
    fprintf(fp,"logfile \"%s\"\n",cfg_logfile);
    fprintf(fp,"%snoecholog\n",cfg_noecholog ? "" : "#");
    fprintf(fp,"%sdebug\n",cfg_debug ? "" : "#");
+   fprintf(fp,"%sloggroups\n",cfg_loggroups ? "" : "#");
    fprintf(fp,"%sreadorigin\n",cfg_readorigin ? "" : "#");
    fprintf(fp,"%snoencode\n",cfg_noencode ? "" : "#");
    fprintf(fp,"%sstrictnetmail\n",cfg_strictnetmail ? "" : "#");
@@ -421,6 +426,7 @@ int main(int argc, char **argv)
              " -l[ogfile] <logfile>   Log to this file instead of " CFG_LOGFILE "\n"
              " -noecholog             Do not write log messages to console\n" 
              " -debug                 Write all network communication to console\n"
+             " -loggroups             Write groups selected by users to the logfile\n"
              "\n"
              " Options for displaying messages:\n"
              "\n"

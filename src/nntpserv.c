@@ -29,6 +29,7 @@ bool cfg_notzutc;
 bool cfg_nocancel;
 bool cfg_strictnetmail;
 bool cfg_readorigin;
+bool cfg_loggroups;
 
 int server_openconnections;
 int server_quit;
@@ -417,6 +418,8 @@ void command_group(struct var *var)
    var->currentarticle=min;
 
    sockprintf(var,"211 %lu %lu %lu %s Group selected" CRLF,num,min,max,g->tagname);
+   if(cfg_loggroups)
+     os_logwrite("(%s) Group selected: %s",var->clientid,g->tagname);
 }
 
 void command_next(struct var *var)

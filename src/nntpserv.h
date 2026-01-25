@@ -72,7 +72,7 @@ struct var
 #define CRLF CR LF
 
 #define SERVER_NAME       "JamNNTPd/" PLATFORM_NAME
-#define SERVER_VERSION    "1.4-c beta 4"
+#define SERVER_VERSION    "1.4-c beta 5"
 #define SERVER_PIDVERSION SERVER_VERSION
 
 #define SOCKIO_TIMEOUT 5*60
@@ -126,6 +126,7 @@ extern bool cfg_notzutc;
 extern bool cfg_nocancel;
 extern bool cfg_strictnetmail;
 extern bool cfg_readorigin;
+extern bool cfg_loggroups;
 
 extern bool cfg_def_flowed;
 extern bool cfg_def_showto;
