@@ -17,6 +17,7 @@ bool cfg_def_flowed = CFG_DEF_FLOWED;
 bool cfg_def_showto = CFG_DEF_SHOWTO;
 bool cfg_def_nonbsp = CFG_DEF_NONBSP;
 bool cfg_def_delssq = CFG_DEF_DELSSQ;
+bool cfg_def_addcr  = CFG_DEF_ADDCR;
 
 bool cfg_debug;
 bool cfg_noecholog;
@@ -2712,8 +2713,14 @@ void command_post(struct var *var)
 
    if(!g->netmail && !g->local)
    {
-      if(newsreader[0]==0 || cfg_notearline)  strcpy(line,CR "---" CR);
-      else                                    sprintf(line,CR "--- %s" CR,newsreader);
+      if(newsreader[0]==0 || cfg_notearline)  strcpy(line,"---" CR);
+      else                                    sprintf(line,"--- %s" CR,newsreader);
+
+      if(var->opt_addcr) {
+          /* insert CR before tearline */
+          memmove(line+1,line,strlen(line)+1);
+          line[0]=13;
+      }
 
       if(strlen(text) + strlen(line) < allocsize-1)
          strcat(text,line);
@@ -2866,7 +2873,7 @@ void command_post(struct var *var)
 void command_authinfo(struct var *var)
 {
    uchar *tmp,*opt,*next,*equal;
-   bool flowed,showto,nonbsp,delssq;
+   bool flowed,showto,nonbsp,delssq,addcr;
 
    if(!(tmp=parseinput(var)))
    {
@@ -2918,6 +2925,7 @@ void command_authinfo(struct var *var)
    showto=var->opt_showto;
    nonbsp=var->opt_nonbsp;
    delssq=var->opt_delssq;
+   addcr=var->opt_addcr;
 
    if(strchr(var->loginname,'/'))
    {
@@ -2979,9 +2987,17 @@ void command_authinfo(struct var *var)
             return;
          }
       }
+      else if(stricmp(opt,"addcr")==0)
+      {
+         if(!(setboolonoff(equal,&addcr)))
+         {
+            sockprintf(var,"482 Unknown setting %s for option %s, use on or off" CRLF,equal,opt);
+            return;
+         }
+      }
       else
       {
-         sockprintf(var,"482 Unknown option %s, known options: flowed, showto, nonbsp, delssq" CRLF,opt);
+         sockprintf(var,"482 Unknown option %s, known options: flowed, showto, nonbsp, delssq, addcr" CRLF,opt);
          return;
       }
 
@@ -3007,6 +3023,7 @@ void command_authinfo(struct var *var)
    var->opt_showto=showto;
    var->opt_nonbsp=nonbsp;
    var->opt_delssq=delssq;
+   var->opt_addcr=addcr;
 
    return;
 }
@@ -3050,6 +3067,7 @@ void server(SOCKET s)
    var.opt_showto=cfg_def_showto;
    var.opt_nonbsp=cfg_def_nonbsp;
    var.opt_delssq=cfg_def_delssq;
+   var.opt_addcr=cfg_def_addcr;
 
    if(getpeername(s,(struct sockaddr *)&fromsa,&fromsa_len) == SOCKET_ERROR)
    {
