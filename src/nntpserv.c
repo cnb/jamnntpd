@@ -420,7 +420,7 @@ void command_group(struct var *var)
 
    sockprintf(var,"211 %lu %lu %lu %s Group selected" CRLF,num,min,max,g->tagname);
    if(cfg_loggroups)
-     os_logwrite("(%s) Group selected: %s",var->clientid,g->tagname);
+      os_logwrite("(%s) Group selected: %s",var->clientid,g->tagname);
 }
 
 void command_next(struct var *var)
@@ -2716,10 +2716,11 @@ void command_post(struct var *var)
       if(newsreader[0]==0 || cfg_notearline)  strcpy(line,"---" CR);
       else                                    sprintf(line,"--- %s" CR,newsreader);
 
-      if(var->opt_addcr) {
-          /* insert CR before tearline */
-          memmove(line+1,line,strlen(line)+1);
-          line[0]=13;
+      if(var->opt_addcr)
+      {
+         /* insert CR before tearline */
+         memmove(line+1,line,strlen(line)+1);
+         line[0]=13;
       }
 
       if(strlen(text) + strlen(line) < allocsize-1)
