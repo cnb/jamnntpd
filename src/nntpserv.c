@@ -31,6 +31,7 @@ bool cfg_nocancel;
 bool cfg_strictnetmail;
 bool cfg_readorigin;
 bool cfg_loggroups;
+bool cfg_note;
 
 int server_openconnections;
 int server_quit;
@@ -2320,7 +2321,6 @@ void command_post(struct var *var)
    from[36]=0;
    subject[72]=0;
    organization[70]=0;
-   newsreader[75]=0;
 
    /* Check syntax */
 
@@ -2714,7 +2714,7 @@ void command_post(struct var *var)
    if(!g->netmail && !g->local)
    {
       if(newsreader[0]==0 || cfg_notearline)  strcpy(line,"---" CR);
-      else                                    sprintf(line,"--- %s" CR,newsreader);
+      else                                    sprintf(line,"--- %.75s" CR,newsreader);
 
       if(var->opt_addcr)
       {
@@ -2811,6 +2811,12 @@ void command_post(struct var *var)
 
    if(!cfg_notzutc)
       addjamfield(SubPacket_PS,JAMSFLD_FTSKLUDGE,timezone);
+
+   if(newsreader[0]!=0 && cfg_note)
+   {
+      sprintf(line,"NOTE: %s",newsreader);
+      addjamfield(SubPacket_PS,JAMSFLD_FTSKLUDGE,line);
+   }
 
    if(g->netmail)    Header_S.Attribute = MSG_LOCAL | MSG_PRIVATE | MSG_TYPENET;
    else if(g->local) Header_S.Attribute = MSG_LOCAL | MSG_TYPELOCAL;

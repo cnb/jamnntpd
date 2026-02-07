@@ -81,6 +81,10 @@ bool parseargs(int argc, char **argv,uchar *filename,ulong line)
       {
          cfg_loggroups=TRUE;
       }
+      else if(stricmp(arg,"-note")==0)
+      {
+         cfg_note=TRUE;
+      }
       else if(stricmp(arg,"-p")==0 || stricmp(arg,"-port")==0)
       {
          if(c+1 == argc)
@@ -390,6 +394,7 @@ void createconfig(uchar *file)
    fprintf(fp,"def_addcr %s\n",cfg_def_addcr ? "on" : "off");
    fprintf(fp,"%snostripre\n",cfg_nostripre ? "" : "#");
    fprintf(fp,"%snotearline\n",cfg_notearline ? "" : "#");
+   fprintf(fp,"%snote\n",cfg_note ? "" : "#");
    fprintf(fp,"%snoreplyaddr\n",cfg_noreplyaddr ? "" : "#");
    fprintf(fp,"%snotzutc\n",cfg_notzutc ? "" : "#");
    fprintf(fp,"%snocancel\n",cfg_nocancel ? "" : "#");
@@ -457,6 +462,7 @@ int main(int argc, char **argv)
              "\n"
              " -nostripre            Do not remove \"Re:\" from subject line\n"
              " -notearline           Do not put X-Newsreader/User-Agent string on tearline\n"
+             " -note                 Insert NOTE kludge with X-Newsreader/User-Agent string\n"
              " -noreplyaddr          Do not create REPLYADDR kludges\n"
              " -notzutc              Do not create TZUTC kludges\n"
              " -nocancel             Do not allow cancelling of messages\n"
