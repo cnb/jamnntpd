@@ -185,6 +185,22 @@ bool parseargs(int argc, char **argv,uchar *filename,ulong line)
 
          c++;
       }
+      else if(stricmp(arg,"-def_squote")==0)
+      {
+         if(c+1 == argc)
+         {
+            printf("Missing argument for %s%s\n",argv[c],src);
+            return(FALSE);
+         }
+
+         if(!(setboolonoff(argv[c+1],&cfg_def_squote)))
+         {
+            printf("Invalid setting %s for %s, must be on or off%s\n",argv[c+1],argv[c],src);
+            return(FALSE);
+         }
+
+         c++;
+      }
       else if(stricmp(arg,"-origin")==0)
       {
          if(c+1 == argc)
@@ -392,6 +408,7 @@ void createconfig(uchar *file)
    fprintf(fp,"def_nonbsp %s\n",cfg_def_nonbsp ? "on" : "off");
    fprintf(fp,"def_delssq %s\n",cfg_def_delssq ? "on" : "off");
    fprintf(fp,"def_addcr %s\n",cfg_def_addcr ? "on" : "off");
+   fprintf(fp,"def_squote %s\n",cfg_def_squote ? "on" : "off");
    fprintf(fp,"%snostripre\n",cfg_nostripre ? "" : "#");
    fprintf(fp,"%snotearline\n",cfg_notearline ? "" : "#");
    fprintf(fp,"%snote\n",cfg_note ? "" : "#");
@@ -467,6 +484,7 @@ int main(int argc, char **argv)
              " -notzutc              Do not create TZUTC kludges\n"
              " -nocancel             Do not allow cancelling of messages\n"
              " -smartquote           Reformat quoted text to fidonet style\n"
+             " -def_squote on/off    Default setting for reformatting quoted text to fidonet style (smartquote must not be enabled)\n"
              " -def_nonbsp on/off    Default setting for replacing non-breaking spaces by normal spaces\n"
              " -def_delssq on/off    Default setting for deleting stuffed space from quoted text (format=flowed)\n"
              " -def_addcr on/off     Default setting for adding a CR (empty line) at end of message text\n"
