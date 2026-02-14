@@ -8,7 +8,7 @@ This fork includes several fixes and improvements (while trying to maintain back
 
 Carlos Navarro (@cnb), Fidonet 2:341/234 (ex 2:346/3)
 
-Check the original documentation for JamNNTPd 1.3: [README.txt](README.txt)
+Check the original documentation for JamNNTPd 1.3: [ReadMe.txt](ReadMe.txt)
 
 ## Changelog
 
