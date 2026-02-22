@@ -14,24 +14,24 @@ Check the original documentation for JamNNTPd 1.3: [ReadMe.txt](ReadMe.txt)
 
 Version 1.4-c (beta)
 
-- New `def_squote` setting (user parameter `squote`).
+- New `-def_squote` setting (user parameter `squote`).
   Default setting for reformatting quoted text to fidonet style. `smartquote` must not be enabled.
 
-- New `note` config setting.
+- New `-note` config setting.
   Insert NOTE kludge with X-Newsreader/User-Agent string
 
-- New `def_addcr` setting (user parameter `addcr`).
+- New `-def_addcr` setting (user parameter `addcr`).
   Default setting for adding a CR (empty line) at end of message text
 
-- New `loggroups` setting.
+- New `-loggroups` setting.
   Write groups selected by users to the logfile
 
 - Fixed: "Re:" not removed from empty subjects
 
-- New setting `def_nonbsp` (user parameter `nonbsp`).
+- New setting `-def_nonbsp` (user parameter `nonbsp`).
   Default setting for replacing non-breaking spaces by regular spaces (UTF-8 and iso-8859-1/LATIN-1)
 
-- New setting `def_delssq` (user parameter `delssq`)
+- New setting `-def_delssq` (user parameter `delssq`)
   Default setting for deleting stuffed space stuffing quoted text (only in format=flowed)
 
 Version 1.3.5-c 
