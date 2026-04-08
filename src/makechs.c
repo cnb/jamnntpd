@@ -3,7 +3,12 @@
 #include <string.h>
 #include <ctype.h>
 
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#include <stdbool.h>
+#else
 typedef int bool;
+#endif
+
 typedef unsigned char uchar;
 
 #ifndef linux

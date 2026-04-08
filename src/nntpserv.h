@@ -11,7 +11,11 @@
 typedef int SOCKET;
 #endif
 
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#include <stdbool.h>
+#else
 typedef int bool;
+#endif
 
 #include "jamlib/jam.h"
 
@@ -74,7 +78,7 @@ struct var
 #define CRLF CR LF
 
 #define SERVER_NAME       "JamNNTPd/" PLATFORM_NAME
-#define SERVER_VERSION    "1.4-c beta 8"
+#define SERVER_VERSION    "1.4-c beta 8b"
 #define SERVER_PIDVERSION SERVER_VERSION
 
 #define SOCKIO_TIMEOUT 5*60

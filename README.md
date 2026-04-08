@@ -14,6 +14,8 @@ Check the original documentation for JamNNTPd 1.3: [ReadMe.txt](ReadMe.txt)
 
 Version 1.4-c (beta)
 
+- Fixed build error using GCC 15 - 'bool' cannot be defined via 'typedef' (thanks @axxisd)
+
 - New `-def_squote` setting (user parameter `squote`).
   Default setting for reformatting quoted text to fidonet style. `smartquote` must not be enabled.
 
