@@ -14,6 +14,8 @@ Check the original documentation for JamNNTPd 1.3: [ReadMe.txt](ReadMe.txt)
 
 Version 1.4-c (beta)
 
+- Fixed crash when accessing a deleted or non-existent article
+
 - Fixed build error using GCC 15 - 'bool' cannot be defined via 'typedef' (thanks @axxisd)
 
 - New `-def_squote` setting (user parameter `squote`).

@@ -809,6 +809,7 @@ void command_abhs(struct var *var,uchar *cmd)
       return;
    }
 
+   subpack = NULL;
    res=JAM_ReadMsgHeader(var->openmb,articlenum-baseheader.BaseMsgNum,&header,&subpack);
 
    if(res != 0 && res != JAM_NO_MESSAGE)
@@ -822,7 +823,8 @@ void command_abhs(struct var *var,uchar *cmd)
    if(res == JAM_NO_MESSAGE || (header.Attribute & MSG_DELETED))
    {
       socksendtext(var,"503 Message has been deleted" CRLF);
-      JAM_DelSubPacket(subpack);
+      if(subpack != NULL)
+         JAM_DelSubPacket(subpack);
       return;
    }
 
