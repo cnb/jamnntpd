@@ -14,12 +14,12 @@ Check the original documentation for JamNNTPd 1.3: [ReadMe.txt](ReadMe.txt)
 
 Version 1.4-c (beta)
 
+- The `-smartquote` setting (or its absence) now determines the default for reformatting quoted text to Fidonet style.
+  Users can override this default with the new parameter `squote` (`squote=on` or `squote=off`)
+  
 - Fixed crash when accessing a deleted or non-existent article
 
 - Fixed build error using GCC 15 - 'bool' cannot be defined via 'typedef' (thanks @axxisd)
-
-- New `-def_squote` setting (user parameter `squote`).
-  Default setting for reformatting quoted text to fidonet style. `smartquote` must not be enabled.
 
 - New `-note` config setting.
   Insert NOTE kludge with X-Newsreader/User-Agent string

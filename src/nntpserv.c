@@ -18,7 +18,6 @@ bool cfg_def_showto = CFG_DEF_SHOWTO;
 bool cfg_def_nonbsp = CFG_DEF_NONBSP;
 bool cfg_def_delssq = CFG_DEF_DELSSQ;
 bool cfg_def_addcr  = CFG_DEF_ADDCR;
-bool cfg_def_squote = CFG_DEF_SQUOTE;
 
 bool cfg_debug;
 bool cfg_noecholog;
@@ -2663,7 +2662,7 @@ void command_post(struct var *var)
    
    /* Reformat quotes */
       
-   if(reference[0] && (cfg_smartquote || var->opt_squote))
+   if(reference[0] && var->opt_squote)
    {
       if((newtext=smartquote(text,allocsize,quotename)))
       {
@@ -3088,7 +3087,7 @@ void server(SOCKET s)
    var.opt_nonbsp=cfg_def_nonbsp;
    var.opt_delssq=cfg_def_delssq;
    var.opt_addcr=cfg_def_addcr;
-   var.opt_squote=cfg_def_squote;
+   var.opt_squote=cfg_smartquote;
 
    if(getpeername(s,(struct sockaddr *)&fromsa,&fromsa_len) == SOCKET_ERROR)
    {
