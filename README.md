@@ -14,6 +14,8 @@ Check the original documentation for JamNNTPd 1.3: [ReadMe.txt](ReadMe.txt)
 
 Version 1.4-c (beta)
 
+- Fixed crash when replying to a deleted or non-existent article
+
 - The `-smartquote` setting (or its absence) now determines the default for reformatting quoted text to Fidonet style.
   Users can override this default with the new parameter `squote` (`squote=on` or `squote=off`)
   

@@ -1555,18 +1555,21 @@ void getparentinfo(struct var *var,uchar *article,uchar *currentgroup,uchar *msg
       return;
    }
 
+   subpack = NULL;
    res=JAM_ReadMsgHeader(var->openmb,articlenum-baseheader.BaseMsgNum,&header,&subpack);
 
    if(res != 0 && res != JAM_NO_MESSAGE)
    {
       os_logwrite("(%s) Could not read message %lu in \"%s\"",var->clientid,articlenum,var->opengroup->jampath);
-      JAM_DelSubPacket(subpack);
+      if(subpack != NULL)
+         JAM_DelSubPacket(subpack);
       return;
    }
 
    if(res == JAM_NO_MESSAGE)
    {
-      JAM_DelSubPacket(subpack);
+      if(subpack != NULL)
+         JAM_DelSubPacket(subpack);
       return;
    }
 
