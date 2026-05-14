@@ -815,7 +815,8 @@ void command_abhs(struct var *var,uchar *cmd)
    {
       os_logwrite("(%s) Could not read message %lu in \"%s\"",var->clientid,articlenum,var->opengroup->jampath);
       socksendtext(var,"503 Local error: Could not read message header" CRLF);
-      JAM_DelSubPacket(subpack);
+      if(subpack != NULL)
+         JAM_DelSubPacket(subpack);
       return;
    }
 
