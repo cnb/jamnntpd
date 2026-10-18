@@ -962,7 +962,7 @@ void command_abhs(struct var *var,uchar *cmd)
    {
       if(!matchname(var->realnames,fromname) && !matchname(var->realnames,toname)) 
       {
-         socksendtext(var,"503 Access denied" CRLF);
+         socksendtext(var,"423 No article with that number" CRLF);
          JAM_DelSubPacket(subpack);
          free(text);
          return;
