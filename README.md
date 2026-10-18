@@ -14,6 +14,8 @@ Check the original documentation for JamNNTPd 1.3: [ReadMe.txt](ReadMe.txt)
 
 Version 1.4-c (beta)
 
+- Fixed incorrect response code when accessing a netmail not to/from the user
+
 - Fixed crash when replying to a deleted or non-existent article
 
 - The `-smartquote` setting (or its absence) now determines the default for reformatting quoted text to Fidonet style.
